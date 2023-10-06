@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+model User {
+
+  id       Int     @id @default(autoincrement())
+  login    String  @unique
+  password String
+  posts    Post[]
+  comments Comment[]
+  likes Like[]
+  // subscription Subscription[] @relation("subscription")
+  // subscriber Subscription[] @relation("subscriber")
+}
+// model Subscription {
+//  id       Int     @id @default(autoincrement())
+//  subscription  User  @relation("subscription",fields: [subscriptionId], references: [id])
+//  subscriptionId Int
+//  subscriber User @relation("subscriber",fields: [subscriberId], references: [id])
+//  subscriberId Int
+// }
+
+model Post {
+  id       Int    @id @default(autoincrement())
+  text     String
+  images Image[]
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId Int
+  comments Comment[]
+  likes Like[]
+}
+model Like {
+  id       Int    @id @default(autoincrement())
+  user   User   @relation(fields: [userId], references: [id])
+  post     Post   @relation(fields: [postId], references: [id])
+  userId Int
+  postId Int
+}
+model Image {
+  id Int  @id @default(autoincrement())
+  imageUrl String
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId Int
+}
+model Comment {
+   id       Int    @id @default(autoincrement())
+   text String
+   author   User   @relation(fields: [authorId], references: [id])
+   authorLogin String
+   authorId Int
+   postId Int
+   post  Post @relation (fields: [postId], references: [id], onDelete: Cascade)
+}

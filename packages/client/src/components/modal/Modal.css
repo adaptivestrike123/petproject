@@ -1,0 +1,25 @@
+.modal {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: rgba(63, 63, 63, 0.5);
+}
+.modal-layout {
+  background-color: rgb(59, 52, 83);
+  padding: 50px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  justify-content: center;
+  -webkit-box-shadow: 0px 5px 10px -2px rgba(0, 0, 0, 0.18);
+  -moz-box-shadow: 0px 5px 10px -2px rgba(0, 0, 0, 0.18);
+  box-shadow: 0px 5px 10px -2px rgba(0, 0, 0, 0.18);
+}

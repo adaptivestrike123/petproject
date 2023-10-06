@@ -1,0 +1,32 @@
+{
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently --kill-others --prefix-colors green.bold,cyan.bold --names backend,web npm:start:backend npm:start:web ",
+    "start:backend": "npm run start --workspace=backend",
+    "start:web": "npm run start --workspace=client"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**"
+    ]
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.2.0",
+    "cors": "^2.8.5",
+    "pg": "^8.11.0"
+  },
+  "name": "twitter",
+  "version": "1.0.0",
+  "main": "databasepg.js",
+  "keywords": [],
+  "description": "",
+  "devDependencies": {
+    "@types/pg": "^8.10.2"
+  }
+}

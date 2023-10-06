@@ -1,0 +1,77 @@
+.carousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.image-post {
+  border-radius: 12px;
+  -webkit-box-shadow: 0px 0px 22px 5px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 0px 22px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 22px 5px rgba(0, 0, 0, 0.2);
+  object-fit: cover;
+  object-position: center;
+  width: 550px;
+  height: 400px;
+}
+.array-left {
+  opacity: 0.9;
+  color: white;
+  border: none;
+  padding: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: absolute;
+  left: 1px;
+  background-color: rgb(59, 52, 83);
+  border-radius: 100%;
+  -webkit-box-shadow: 0px 0px 22px 5px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 0px 22px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 22px 5px rgba(0, 0, 0, 0.2);
+}
+.counter {
+  position: absolute;
+  left: 7px;
+  top: 7px;
+  background-color: gray;
+  padding: 6px;
+  border-radius: 15px;
+  opacity: 0.7;
+}
+.array-left:disabled {
+  background-color: rgb(59, 52, 83);
+  opacity: 0.5;
+}
+.array-left:active:hover {
+  background-color: rgb(43, 38, 61);
+  transition: 0.4s;
+}
+.array-right {
+  opacity: 0.9;
+  color: white;
+  border: none;
+  padding: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: absolute;
+  right: 1px;
+  background-color: rgb(59, 52, 83);
+  border-radius: 100%;
+  -webkit-box-shadow: 0px 0px 22px 5px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 0px 22px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 22px 5px rgba(0, 0, 0, 0.2);
+}
+
+.array-right:disabled {
+  background-color: rgb(59, 52, 83);
+  opacity: 0.5;
+}
+.array-right:active:hover {
+  background-color: rgb(43, 38, 61);
+  transition: 0.4s;
+}

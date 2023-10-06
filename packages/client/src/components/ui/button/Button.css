@@ -1,0 +1,27 @@
+button {
+  padding: 15px;
+  background-color: rgb(59, 52, 83);
+  color: white;
+  border-radius: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+  border: none;
+  border-top: 1px solid rgb(134, 134, 134);
+  cursor: pointer;
+}
+button:hover {
+  background-color: rgb(43, 38, 61);
+  transition: 0.3s;
+}
+button:disabled {
+  background-color: rgb(37, 37, 37);
+  cursor: default;
+  opacity: 0.5;
+}
+button:disabled:hover {
+  background-color: none;
+}
