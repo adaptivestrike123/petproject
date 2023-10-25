@@ -6,23 +6,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 model User {
-
   id       Int     @id @default(autoincrement())
   login    String  @unique
   password String
   posts    Post[]
   comments Comment[]
   likes Like[]
-  // subscription Subscription[] @relation("subscription")
-  // subscriber Subscription[] @relation("subscriber")
+  subscription Follow[] @relation("subscription")
+  subscriber Follow[] @relation("subscriber")
 }
-// model Subscription {
-//  id       Int     @id @default(autoincrement())
-//  subscription  User  @relation("subscription",fields: [subscriptionId], references: [id])
-//  subscriptionId Int
-//  subscriber User @relation("subscriber",fields: [subscriberId], references: [id])
-//  subscriberId Int
-// }
+model Follow {
+ id       Int     @id @default(autoincrement())
+ subscription  User  @relation("subscription",fields: [subscriptionId], references: [id])
+ subscriptionId Int
+ subscriber User @relation("subscriber",fields: [subscriberId], references: [id])
+ subscriberId Int
+}
 
 model Post {
   id       Int    @id @default(autoincrement())
