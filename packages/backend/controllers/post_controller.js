@@ -51,6 +51,7 @@ PostController.post("/", uploadPost.array("file", 5), async (req, res) => {
 PostController.post("/delete", async (req, res) => {
   try {
     const { id } = req.body;
+    console.log(id);
     const data = PostService.deletePost({ id });
     res.json(data);
   } catch (error) {

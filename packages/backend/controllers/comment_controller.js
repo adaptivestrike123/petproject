@@ -18,6 +18,7 @@ CommentController.post("/", async (req, res) => {
 });
 CommentController.post("/delete", async (req, res) => {
   const { id } = req.body;
+
   const data = await CommentService.deleteComment({ id });
   res.json(data);
 });

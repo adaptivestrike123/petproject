@@ -28,7 +28,6 @@ export const CreatePost: FC<Props> = ({
   const preparePost = async () => {
     if (imageUpload.current.files?.length !== 0 && imageUpload.current.files) {
       const formData = new FormData();
-
       for (let index in imageUpload.current.files) {
         formData.append(`file`, imageUpload.current.files[index]);
       }
