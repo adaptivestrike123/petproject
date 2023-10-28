@@ -37,7 +37,9 @@ export const Comments: FC<Props> = ({
         <div className="comment-input">
           <img
             className="profile-avatar"
-            src={`http://localhost:5000/static/uploads/${user?.id}.png`}
+            src={`http://localhost:5000/static/uploads/${
+              user?.id
+            }.png?${Date.now()}`}
           ></img>
           <input
             placeholder="Написать комментарий..."
@@ -53,7 +55,9 @@ export const Comments: FC<Props> = ({
           <div className="comment-wrapper">
             <div className="comment-image-wrapper">
               <img
-                src={`http://localhost:5000/static/uploads/${elem.authorId}.png`}
+                src={`http://localhost:5000/static/uploads/${
+                  elem.authorId
+                }.png?${Date.now()}`}
                 className="profile-avatar"
               ></img>
             </div>

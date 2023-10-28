@@ -6,8 +6,8 @@ import { Post } from "../../post/Post";
 
 interface Props {
   authorId?: number;
-  key?: any;
   createdPostCount?: number;
+  navigateCounter?: number;
 }
 export interface IPost {
   title: string;
@@ -36,7 +36,11 @@ interface Comment {
   authorLogin: string;
 }
 
-export const Posts: FC<Props> = ({ authorId, createdPostCount }) => {
+export const Posts: FC<Props> = ({
+  authorId,
+  createdPostCount,
+  navigateCounter,
+}) => {
   const [posts, setPosts] = useState<IPost[]>([]);
 
   useEffect(() => {
@@ -54,10 +58,10 @@ export const Posts: FC<Props> = ({ authorId, createdPostCount }) => {
       };
       getPostsByAuthorId();
     }
-  }, [createdPostCount]);
+  }, [createdPostCount, navigateCounter]);
 
   const deletePost = async (id: number) => {
-    const { data } = await apiAxios.post("/post/delete", { id });
+    await apiAxios.post("/post/delete", { id });
 
     setPosts(posts.filter((elem) => elem.id != id));
   };

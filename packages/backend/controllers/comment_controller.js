@@ -12,7 +12,6 @@ CommentController.post("/", async (req, res) => {
     authorLogin,
     postId,
     text,
-    authorLogin: req.user.login,
   });
   res.json(result);
 });

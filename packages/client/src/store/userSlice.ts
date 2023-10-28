@@ -9,12 +9,29 @@ interface Post {
   authorId: number;
 }
 
-interface User {
+export interface User {
   login: string;
   id: number;
   avatarUrl: string;
   posts: Post[];
   likes: Like[];
+  subscriptions: Subscription[];
+  subscribers: Subscribers[];
+  map: any;
+}
+interface Subscription {
+  id: number;
+  subscriberId: number;
+  subscriptionId: number;
+  subscriberLogin: string;
+  subscriptionLogin: string;
+}
+interface Subscribers {
+  id: number;
+  subscriberId: number;
+  subscriptionId: number;
+  subscriberLogin: string;
+  subscriptionLogin: string;
 }
 interface Like {
   id: number;
@@ -39,6 +56,13 @@ export const fetchUser = createAsyncThunk<User, Props>(
     if (data == "Неправильный логин или пароль") {
       return undefined;
     }
+    return data;
+  }
+);
+export const fetchUserById = createAsyncThunk<User, number>(
+  "user/fetchUserById",
+  async (id) => {
+    const { data } = await apiAxios.post("/auth/getUserById", { id });
     return data;
   }
 );
@@ -73,6 +97,9 @@ const userSlice = createSlice({
     updateAvatar(state, action) {
       state.user!.avatarUrl = action.payload;
     },
+    addSubscribe(state, action) {
+      state.user!.subscriptions.push(action.payload);
+    },
   },
   extraReducers(builder) {
     builder
@@ -92,6 +119,12 @@ const userSlice = createSlice({
         state.user = action.payload;
       })
       .addCase(registerUser.rejected, () => {
+        console.log("rejected");
+      })
+      .addCase(fetchUserById.fulfilled, (state, action) => {
+        state.user = action.payload;
+      })
+      .addCase(fetchUserById.rejected, () => {
         console.log("rejected");
       });
   },

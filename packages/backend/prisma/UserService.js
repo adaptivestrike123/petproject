@@ -13,6 +13,8 @@ export class UserService {
       include: {
         likes: true,
         posts: true,
+        subscribers: true,
+        subscriptions: true,
       },
     });
 
@@ -52,6 +54,8 @@ export class UserService {
       include: {
         posts: true,
         likes: true,
+        subscribers: true,
+        subscriptions: true,
       },
     });
     return user;

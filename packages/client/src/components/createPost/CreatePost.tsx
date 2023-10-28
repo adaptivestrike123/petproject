@@ -2,6 +2,7 @@ import React, { FC, useState, useRef, MutableRefObject } from "react";
 import "./CreatePost.css";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import { apiAxios } from "../axios/apiAxios";
+import { useAppSelector } from "../../store/hook";
 
 interface Props {
   setModal: (modal: boolean) => void;
@@ -16,6 +17,7 @@ export const CreatePost: FC<Props> = ({
 }) => {
   const [text, setText] = useState<string>("");
   const [files, setFiles] = useState<string[]>([]);
+  const user = useAppSelector((state) => state.persist.userSlice.user);
   const imageUpload = useRef() as MutableRefObject<HTMLInputElement>;
 
   const uploadFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,6 +35,7 @@ export const CreatePost: FC<Props> = ({
       }
 
       formData.append("text", text);
+      formData.append("id", String(user?.id));
 
       await handleCreatePost(formData);
     }

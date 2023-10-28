@@ -12,15 +12,17 @@ model User {
   posts    Post[]
   comments Comment[]
   likes Like[]
-  subscription Follow[] @relation("subscription")
-  subscriber Follow[] @relation("subscriber")
+  subscriptions Follow[] @relation("subscribers")
+  subscribers Follow[] @relation("subscriptions")
 }
 model Follow {
  id       Int     @id @default(autoincrement())
- subscription  User  @relation("subscription",fields: [subscriptionId], references: [id])
+ subscription  User  @relation("subscriptions",fields: [subscriptionId], references: [id], onDelete: Cascade)
  subscriptionId Int
- subscriber User @relation("subscriber",fields: [subscriberId], references: [id])
+ subscriber User @relation("subscribers",fields: [subscriberId], references: [id], onDelete: Cascade)
  subscriberId Int
+ subscriberLogin String
+ subscriptionLogin String
 }
 
 model Post {

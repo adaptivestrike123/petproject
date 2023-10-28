@@ -24,17 +24,16 @@ PostController.post("/byId", async (req, res) => {
     likedPosts: req.user.likes,
     allPosts: data,
   });
-  console.log(postsLikedField);
+
   res.json(postsLikedField);
 });
 
 PostController.post("/", uploadPost.array("file", 5), async (req, res) => {
   try {
-    const { text } = req.body;
+    const { text, id } = req.body;
+    const defId = Number(id);
 
-    const { id } = req.user;
-
-    const data = await PostService.createPost({ text, authorId: id });
+    const data = await PostService.createPost({ text, authorId: defId });
     await Promise.all(
       req.files.map(async (elem) => {
         const res = await ImageService.uploadImage({

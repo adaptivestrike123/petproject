@@ -162,18 +162,9 @@ a {
 .widget:hover {
   background-color: rgb(43, 38, 61);
 }
-.page {
-  text-shadow: rgb(255, 255, 255) 1px 0 3px;
-}
 .page:hover {
-  text-shadow: rgb(255, 255, 255) 1px 0 8px;
-  transition: 0.1s;
-}
-.exit {
   cursor: pointer;
-  text-shadow: rgb(255, 255, 255) 1px 0 3px;
 }
 .exit:hover {
-  text-shadow: rgb(255, 255, 255) 1px 0 8px;
-  transition: 0.1s;
+  cursor: pointer;
 }

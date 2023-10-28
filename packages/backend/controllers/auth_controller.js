@@ -28,4 +28,9 @@ AuthController.post("/refresh", async (req, res) => {
   const data = await UserService.findUserByLogin(login);
   res.json(data);
 });
+AuthController.post("/getUserById", async (req, res) => {
+  const { id } = req.body;
+  const data = await UserService.findUserById({ id });
+  res.json(data);
+});
 export default AuthController;

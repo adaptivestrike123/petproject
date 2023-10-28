@@ -66,8 +66,9 @@ const App: FC = () => {
                 <div className="widget-wrapper">
                   <img
                     className="widget-avatar"
-                    src={user ? user.avatarUrl : undefined}
-                    alt=""
+                    src={`http://localhost:5000/static/uploads/${
+                      user?.id
+                    }.png?${Date.now()}`}
                   ></img>
 
                   <KeyboardArrowDownIcon></KeyboardArrowDownIcon>
@@ -92,7 +93,6 @@ const App: FC = () => {
           </div>
         </div>
       </div>
-
       <Routes>
         <Route
           path="/user"
