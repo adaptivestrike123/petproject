@@ -29,10 +29,11 @@ model Post {
   id       Int    @id @default(autoincrement())
   text     String
   images Image[]
-  author   User   @relation(fields: [authorId], references: [id])
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId Int
   comments Comment[]
   likes Like[]
+  createdAt String
 }
 model Like {
   id       Int    @id @default(autoincrement())

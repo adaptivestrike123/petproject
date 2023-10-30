@@ -2,7 +2,8 @@ import React, { FC, useEffect } from "react";
 import "./Post.css";
 import { apiAxios } from "../axios/apiAxios";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { useAppDispatch, useAppSelector } from "../../store/hook";
+import { useAppSelector } from "../../store/hook";
+import CircleIcon from "@mui/icons-material/Circle";
 import { CSSTransition } from "react-transition-group";
 import { useState } from "react";
 import { Carousel } from "../ui/carousel/Carousel";
@@ -22,6 +23,7 @@ export const Post: FC<Props> = ({ post, deletePost }) => {
   const userId = user?.id;
   const [currentPost, setCurrentPost] = useState(post);
   const [viewComment, setViewComment] = useState<boolean>(false);
+  const [counter, setCounter] = useState<number>(0);
 
   const updateLikes = async () => {
     await apiAxios.post(`/like${currentPost.liked ? `/dislike` : ``}`, {
@@ -55,7 +57,9 @@ export const Post: FC<Props> = ({ post, deletePost }) => {
       comments: currentPost.comments.filter((elem) => elem.id != data.id),
     });
   };
-
+  {
+    console.log(currentPost.createdAt);
+  }
   return (
     <div className="post">
       <div className="post-layout">
@@ -77,17 +81,36 @@ export const Post: FC<Props> = ({ post, deletePost }) => {
                     currentPost.authorId
                   }.png?${Date.now()}`}
                 ></img>
-                <b>{currentPost.author.login}</b>
+                <div className="post-info">
+                  <b>{currentPost.author.login}</b>
+                  <p>{currentPost.createdAt}</p>
+                </div>
               </div>
             </Link>
           </div>
 
           <div className="post-content">
-            <p>{currentPost.text}</p>
+            <p className="post-content-title">{currentPost.text}</p>
             {currentPost.images && (
-              <Carousel images={currentPost.images}></Carousel>
+              <Carousel
+                images={currentPost.images}
+                counter={counter}
+                setCounter={setCounter}
+              ></Carousel>
             )}
           </div>
+          {currentPost.images.length > 1 && (
+            <div className="counter">
+              {currentPost.images.map((elem: any, index) => (
+                <CircleIcon
+                  className={
+                    index == counter ? `circle-icon-active` : `circle-icon`
+                  }
+                  style={{ width: "11px" }}
+                ></CircleIcon>
+              ))}
+            </div>
+          )}
           <div className="interaction">
             <div className="interaction-wrapper">
               <div

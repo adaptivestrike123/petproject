@@ -32,7 +32,9 @@ export const User: FC = ({}) => {
     }
     const file = e.target.files[0];
     const formData = new FormData();
+    formData.append("id", String(user?.id));
     formData.append("file", file);
+
     await apiAxios.post("/uploads/avatar", formData);
 
     dispatch(

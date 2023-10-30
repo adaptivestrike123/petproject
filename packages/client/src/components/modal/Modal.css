@@ -8,7 +8,8 @@
   bottom: 0;
   right: 0;
   left: 0;
-  background: rgba(63, 63, 63, 0.5);
+  background: rgba(24, 24, 24, 0.5);
+  z-index: 1;
 }
 .modal-layout {
   background-color: rgb(59, 52, 83);

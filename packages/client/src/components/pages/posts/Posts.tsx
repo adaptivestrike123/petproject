@@ -14,11 +14,12 @@ export interface IPost {
   text: string;
   id: number;
   authorId: number;
-  images: Image[] | false;
+  images: Image[];
   comments: Comment[];
   author: Author;
   likes: number;
   liked: boolean;
+  createdAt: string;
 }
 
 interface Author {

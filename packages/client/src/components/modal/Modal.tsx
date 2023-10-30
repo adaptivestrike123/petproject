@@ -12,7 +12,7 @@ export const Modal: FC<ModalProps> = ({ modal, setModal, info }) => {
     <div className="modal">
       <div className="modal-layout">
         <p>{info}</p>
-        <button onClick={() => setModal(!modal)}>Хорошо</button>
+        <button onClick={() => setModal(!modal)}>OK</button>
       </div>
     </div>
   );

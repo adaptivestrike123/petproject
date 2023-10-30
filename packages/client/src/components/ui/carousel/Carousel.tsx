@@ -1,12 +1,13 @@
 import React, { FC, useState } from "react";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 import "./Carousel.css";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 
 interface Props {
   images: Image[];
+  counter: number;
+  setCounter: (counter: number) => void;
 }
 interface Image {
   id: number;
@@ -14,32 +15,33 @@ interface Image {
   postId: number;
 }
 
-export const Carousel: FC<Props> = ({ images }) => {
-  const [current, setCurrent] = useState<number>(0);
-
+export const Carousel: FC<Props> = ({ images, counter, setCounter }) => {
   return (
     <div className="carousel">
-      <div className="counter">{`${current + 1}/${images.length}`}</div>
-      <button
-        className="array-left"
-        onClick={() => setCurrent(current - 1)}
-        disabled={current == 0 ? true : false}
-      >
-        <KeyboardArrowLeftIcon></KeyboardArrowLeftIcon>
-      </button>
+      {images.length > 1 && (
+        <button
+          className="array-left"
+          onClick={() => setCounter(counter - 1)}
+          disabled={counter == 0 ? true : false}
+        >
+          <KeyboardArrowLeftIcon className="array-left"></KeyboardArrowLeftIcon>
+        </button>
+      )}
 
       <img
         className="image-post"
-        src={`http://localhost:5000/static/post_images/${images[current].imageUrl}`}
+        src={`http://localhost:5000/static/post_images/${images[counter].imageUrl}`}
       ></img>
 
-      <button
-        className="array-right"
-        onClick={() => setCurrent(current + 1)}
-        disabled={current == images.length - 1 ? true : false}
-      >
-        <KeyboardArrowRight className="array-right"></KeyboardArrowRight>
-      </button>
+      {images.length > 1 && (
+        <button
+          className="array-right"
+          onClick={() => setCounter(counter + 1)}
+          disabled={counter == images.length - 1 ? true : false}
+        >
+          <KeyboardArrowRight className="array-right"></KeyboardArrowRight>
+        </button>
+      )}
     </div>
   );
 };

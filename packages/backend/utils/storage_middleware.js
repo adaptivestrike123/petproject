@@ -4,8 +4,10 @@ const storage = multer.diskStorage({
   destination: (_, __, cb) => {
     cb(null, "static/uploads");
   },
-  filename: (req, _, cb) => {
-    cb(null, `${req.user.id}.png`);
+  filename: (req, file, cb) => {
+    const id = JSON.parse(JSON.stringify(req.body.id));
+    console.log(id);
+    cb(null, `${String(id)}.png`);
   },
 });
 

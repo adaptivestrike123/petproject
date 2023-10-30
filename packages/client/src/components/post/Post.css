@@ -11,6 +11,7 @@
   align-items: flex-start;
   gap: 7px;
 }
+
 .post-layout {
   background-color: rgb(59, 52, 83);
   padding: 15px;
@@ -20,9 +21,19 @@
   -moz-box-shadow: 0px 5px 10px -2px rgba(0, 0, 0, 0.18);
   box-shadow: 0px 5px 10px -2px rgba(0, 0, 0, 0.18);
 }
+.post-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+.post-info p {
+  font-size: 0.8em;
+  color: rgb(196, 196, 196);
+}
 .post-delete {
   position: absolute;
-  z-index: 1;
+  z-index: 0;
   top: 7px;
   right: 0;
   border-radius: 90px;
@@ -33,7 +44,7 @@
 }
 .post-delete-icon {
   color: red;
-  opacity: 0.6;
+  opacity: 0.4;
   cursor: pointer;
 }
 .post-delete:hover {
@@ -50,15 +61,19 @@
 }
 .profile-avatar {
   border-radius: 100%;
-  border: 1px solid white;
   width: 40px;
   height: 40px;
   object-position: center;
   object-fit: cover;
 }
+.counter {
+  display: flex;
+  gap: 3px;
+  margin: 0 auto;
+  opacity: 0.8;
+}
 .interaction {
   display: flex;
-  margin-top: 2px;
 }
 .interaction-wrapper {
   display: flex;
@@ -66,12 +81,12 @@
   align-items: center;
 }
 .liked {
-  transition: 0.4s;
   color: red;
+  animation: like 0.3s forwards;
 }
 .notLiked {
-  transition: 0.4s;
   color: white;
+  animation: dislike 0.3s forwards;
 }
 .interaction-material-wrapper {
   align-items: center;
@@ -86,4 +101,38 @@
   cursor: pointer;
   background-color: rgb(46, 41, 65);
   transition: 0.2s;
+}
+
+.circle-icon {
+  color: rgb(34, 30, 48);
+}
+.circle-icon-active {
+  color: white;
+  animation: slide 0.3s forwards;
+}
+@keyframes slide {
+  0% {
+    color: rgb(34, 30, 48);
+    transform: translate(0) scaleY(2) scaleX(2);
+  }
+  100% {
+    color: rgb(255, 255, 255);
+  }
+}
+@keyframes like {
+  0% {
+    color: white;
+    transform: translate(0) scaleY(2) scaleX(2);
+  }
+  100% {
+    color: red;
+  }
+}
+@keyframes dislike {
+  0% {
+    color: red;
+  }
+  100% {
+    color: white;
+  }
 }

@@ -8,7 +8,11 @@ interface Props {
 }
 export const Button: FC<Props> = ({ handleClick, title, disabled }) => {
   return (
-    <button onClick={() => handleClick()} disabled={disabled}>
+    <button
+      className="button"
+      onClick={() => handleClick()}
+      disabled={disabled}
+    >
       {title}
     </button>
   );

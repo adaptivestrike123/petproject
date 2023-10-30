@@ -66,6 +66,9 @@ export class PostService {
         data: {
           text,
           authorId,
+          createdAt: `${new Date().getDate()}.${
+            new Date().getMonth() + 1
+          }.${new Date().getFullYear()}`,
         },
       });
       return result;
