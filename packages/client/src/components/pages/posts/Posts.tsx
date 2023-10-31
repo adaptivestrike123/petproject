@@ -3,6 +3,7 @@ import React, { FC, useState, useEffect } from "react";
 import "./Posts.css";
 import { apiAxios } from "../../axios/apiAxios";
 import { Post } from "../../post/Post";
+import { useAppSelector } from "../../../store/hook";
 
 interface Props {
   authorId?: number;
@@ -43,6 +44,7 @@ export const Posts: FC<Props> = ({
   navigateCounter,
 }) => {
   const [posts, setPosts] = useState<IPost[]>([]);
+  const user = useAppSelector((state) => state.persist.userSlice.user);
 
   useEffect(() => {
     if (!authorId) {

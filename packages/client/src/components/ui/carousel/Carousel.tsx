@@ -16,6 +16,9 @@ interface Image {
 }
 
 export const Carousel: FC<Props> = ({ images, counter, setCounter }) => {
+  {
+    console.log(images);
+  }
   return (
     <div className="carousel">
       {images.length > 1 && (

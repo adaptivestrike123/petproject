@@ -36,7 +36,6 @@ export const Post: FC<Props> = ({ post, deletePost }) => {
       likes: currentPost.liked ? currentPost.likes - 1 : currentPost.likes + 1,
     });
   };
-
   const addComment = async (postId: number, text: string) => {
     const { data } = await apiAxios.post("/comment", {
       postId,
@@ -80,6 +79,11 @@ export const Post: FC<Props> = ({ post, deletePost }) => {
                   src={`http://localhost:5000/static/uploads/${
                     currentPost.authorId
                   }.png?${Date.now()}`}
+                  onError={({ currentTarget }) => {
+                    currentTarget.onerror = null;
+                    currentTarget.src =
+                      "http://localhost:5000/static/uploads/empty-photo.png";
+                  }}
                 ></img>
                 <div className="post-info">
                   <b>{currentPost.author.login}</b>
@@ -140,7 +144,7 @@ export const Post: FC<Props> = ({ post, deletePost }) => {
       <CSSTransition
         in={viewComment}
         timeout={300}
-        classNames="modal"
+        classNames="modal-widget"
         unmountOnExit
       >
         <Comments

@@ -41,6 +41,7 @@ const App: FC = () => {
 
   const exit = () => {
     dispatch(clear());
+    localStorage.removeItem("token");
     setModal(!modal);
   };
 
@@ -69,6 +70,11 @@ const App: FC = () => {
                     src={`http://localhost:5000/static/uploads/${
                       user?.id
                     }.png?${Date.now()}`}
+                    onError={({ currentTarget }) => {
+                      currentTarget.onerror = null;
+                      currentTarget.src =
+                        "http://localhost:5000/static/uploads/empty-photo.png";
+                    }}
                   ></img>
 
                   <KeyboardArrowDownIcon></KeyboardArrowDownIcon>
@@ -76,7 +82,7 @@ const App: FC = () => {
                 <CSSTransition
                   in={modal}
                   timeout={300}
-                  classNames="modal"
+                  classNames="modal-widget"
                   unmountOnExit
                 >
                   <div className="widget-modal">

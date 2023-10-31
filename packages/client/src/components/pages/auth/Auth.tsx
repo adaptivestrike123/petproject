@@ -43,7 +43,7 @@ export const Auth: FC = () => {
           ></input>
 
           <input
-            type="text"
+            type="password"
             placeholder="Пароль"
             onChange={(e) => setPassword(e.target.value)}
           ></input>

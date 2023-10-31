@@ -7,25 +7,36 @@ export const PostController = express.Router();
 
 PostController.get("/", async (req, res) => {
   const data = await PostService.findAllPosts();
-
-  const postsLikedField = PostService.addLikedField({
-    likedPosts: req.user.likes,
-    allPosts: data,
-  });
-  res.json(postsLikedField);
+  console.log(req.headers.authorization);
+  if (req.user) {
+    const postsLikedField = PostService.addLikedField({
+      likedPosts: req.user.likes,
+      allPosts: data,
+    });
+    res.json(postsLikedField);
+  } else {
+    res.json(data);
+  }
 });
 
 PostController.post("/byId", async (req, res) => {
-  const { authorId } = req.body;
+  try {
+    const { authorId } = req.body;
 
-  const data = await PostService.findPostsByAuthorId({ authorId });
+    const data = await PostService.findPostsByAuthorId({ authorId });
 
-  const postsLikedField = PostService.addLikedField({
-    likedPosts: req.user.likes,
-    allPosts: data,
-  });
-
-  res.json(postsLikedField);
+    if (req.user.likes) {
+      const postsLikedField = PostService.addLikedField({
+        likedPosts: req.user.likes,
+        allPosts: data,
+      });
+      res.json(postsLikedField);
+    } else {
+      res.json(data);
+    }
+  } catch (error) {
+    res.json({ message: error });
+  }
 });
 
 PostController.post("/", uploadPost.array("file", 5), async (req, res) => {
@@ -34,6 +45,7 @@ PostController.post("/", uploadPost.array("file", 5), async (req, res) => {
     const defId = Number(id);
 
     const data = await PostService.createPost({ text, authorId: defId });
+    console.log(req.files);
     await Promise.all(
       req.files.map(async (elem) => {
         const res = await ImageService.uploadImage({

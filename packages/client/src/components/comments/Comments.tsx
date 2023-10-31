@@ -40,6 +40,11 @@ export const Comments: FC<Props> = ({
             src={`http://localhost:5000/static/uploads/${
               user?.id
             }.png?${Date.now()}`}
+            onError={({ currentTarget }) => {
+              currentTarget.onerror = null;
+              currentTarget.src =
+                "http://localhost:5000/static/uploads/empty-photo.png";
+            }}
           ></img>
           <input
             placeholder="Написать комментарий..."
@@ -59,6 +64,11 @@ export const Comments: FC<Props> = ({
                   elem.authorId
                 }.png?${Date.now()}`}
                 className="profile-avatar"
+                onError={({ currentTarget }) => {
+                  currentTarget.onerror = null;
+                  currentTarget.src =
+                    "http://localhost:5000/static/uploads/empty-photo.png";
+                }}
               ></img>
             </div>
 

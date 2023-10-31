@@ -3,6 +3,7 @@ import { useAppSelector } from "../../../store/hook";
 import { useNavigate } from "react-router";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import PersonAddDisabledIcon from "@mui/icons-material/PersonAddDisabled";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
 
 import "./UserProfile.css";
 import { useParams } from "react-router";
@@ -125,20 +126,29 @@ export const UserProfile: FC = () => {
                 src={`http://localhost:5000/static/uploads/${
                   userProfile?.id
                 }.png?${Date.now()}`}
+                onError={({ currentTarget }) => {
+                  currentTarget.onerror = null;
+                  currentTarget.src =
+                    "http://localhost:5000/static/uploads/empty-photo.png";
+                }}
               ></img>
               <h1>{userProfile?.login}</h1>
               {userProfile?.subscribers?.find(
                 (elem) => elem.subscriberId == user?.id
               ) ? (
                 <div className="follow" onClick={() => unsubscribe()}>
-                  <PersonAddDisabledIcon
+                  <HowToRegIcon
                     style={{ width: "35px", height: "35px" }}
-                  ></PersonAddDisabledIcon>
+                  ></HowToRegIcon>
                 </div>
               ) : (
                 <div className="follow" onClick={() => subscribe()}>
                   <PersonAddIcon
-                    style={{ width: "35px", height: "35px" }}
+                    style={{
+                      width: "35px",
+                      height: "35px",
+                      transform: "scaleX(-1)",
+                    }}
                   ></PersonAddIcon>
                 </div>
               )}

@@ -104,6 +104,11 @@ export const User: FC = ({}) => {
               src={`http://localhost:5000/static/uploads/${
                 user?.id
               }.png?${Date.now()}`}
+              onError={({ currentTarget }) => {
+                currentTarget.onerror = null;
+                currentTarget.src =
+                  "http://localhost:5000/static/uploads/empty-photo.png";
+              }}
               onClick={() => avatar.current.click()}
             ></img>
 

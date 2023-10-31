@@ -1,4 +1,11 @@
-import React, { FC, useState, useEffect, useMemo } from "react";
+import React, {
+  FC,
+  useState,
+  useEffect,
+  useMemo,
+  useRef,
+  MutableRefObject,
+} from "react";
 import { apiAxios } from "../../axios/apiAxios";
 import { useAppDispatch, useAppSelector } from "../../../store/hook";
 import { Navigate } from "react-router";
@@ -15,6 +22,7 @@ export const Register: FC = () => {
   const [modal, setModal] = useState<boolean>(false);
   const [info, setInfo] = useState<string>("");
   const regUser = async () => {
+    console.log(localStorage.getItem("token"));
     const data = await dispatch(registerUser({ login, password }));
     if (!data.payload) {
       setInfo("Такой пользователь уже существует");
@@ -22,14 +30,21 @@ export const Register: FC = () => {
     }
   };
   const validation = () => {
-    if (login.length >= 6 && password.length >= 6) {
+    if (login.length >= 3 && password.length >= 6) {
       return regUser();
-    } else {
-      setInfo("Логин и пароль должны содержать не менее 6 символов");
+    }
+    if (password.length < 6) {
+      setInfo("Пароль должен содержать не менее 6 символов");
+      setModal(!modal);
+    }
+    if (login.length < 3) {
+      setInfo("Логин должен содержать не менее 3 символов");
       setModal(!modal);
     }
   };
-
+  {
+    console.log(localStorage.getItem("token"));
+  }
   return (
     <div className="register">
       <div className="container">
@@ -38,6 +53,7 @@ export const Register: FC = () => {
           timeout={300}
           classNames="modal"
           unmountOnExit
+          title="Ошибка"
         >
           <Modal modal={modal} setModal={setModal} info={info}></Modal>
         </CSSTransition>
@@ -51,8 +67,10 @@ export const Register: FC = () => {
             ></input>
 
             <input
-              onChange={(e) => setPassword(e.target.value)}
+              type="password"
               placeholder="Пароль"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
             ></input>
           </div>
 
