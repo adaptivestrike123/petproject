@@ -9,6 +9,9 @@ export class CommentService {
         postId,
         text,
         authorLogin,
+        createdAt: `${new Date().getDate()}.${
+          new Date().getMonth() + 1
+        }.${new Date().getFullYear()}`,
       },
     });
 

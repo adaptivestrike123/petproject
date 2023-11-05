@@ -36,6 +36,7 @@ interface Comment {
   text: string;
   authorId: number;
   authorLogin: string;
+  createdAt: string;
 }
 
 export const Posts: FC<Props> = ({

@@ -30,6 +30,7 @@ export const Auth: FC = () => {
           modal={modal}
           setModal={setModal}
           info="Неправильный логин или пароль"
+          title="Ошибка"
         ></Modal>
       </CSSTransition>
       <div className="fields-align">

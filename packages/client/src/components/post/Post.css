@@ -10,10 +10,11 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
+  font-size: 14px;
 }
 
 .post-layout {
-  background-color: rgb(59, 52, 83);
+  background-color: rgb(36, 36, 36);
   padding: 15px;
   border-top-right-radius: 30px;
   border-top-left-radius: 30px;
@@ -36,20 +37,29 @@
   z-index: 0;
   top: 7px;
   right: 0;
-  border-radius: 90px;
   display: flex;
   justify-content: center;
+  cursor: pointer;
   align-items: center;
-  padding: 1px;
+
+  padding: 2px;
 }
 .post-delete-icon {
-  color: red;
-  opacity: 0.4;
-  cursor: pointer;
+  color: white;
+  opacity: 0.9;
 }
-.post-delete:hover {
-  background-color: rgb(43, 38, 61);
-  transition: 0.3s;
+.post-delete-active {
+  position: absolute;
+  z-index: 0;
+  top: 7px;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  align-items: center;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  padding: 2px;
 }
 .profile-bar {
   display: flex;
@@ -58,6 +68,7 @@
   display: flex;
   gap: 8px;
   align-items: center;
+  font-size: 14.8px;
 }
 .profile-avatar {
   border-radius: 100%;
@@ -89,28 +100,55 @@
   color: white;
   animation: dislike 0.3s forwards;
 }
+.options-p {
+  padding: 7px;
+  width: 100%;
+}
+.options-p:hover {
+  background-color: rgb(65, 65, 65);
+}
 .interaction-material-wrapper {
   align-items: center;
   gap: 5px;
   display: flex;
   padding: 5px 11px;
-
   border-radius: 20px;
-  background-color: rgb(50, 44, 70);
+  background-color: rgb(41, 41, 41);
+  -webkit-box-shadow: 0px 0px 10px -2px rgba(0, 0, 0, 0.36);
+  -moz-box-shadow: 0px 0px 10px -2px rgba(0, 0, 0, 0.36);
+  box-shadow: 0px 0px 10px -2px rgba(0, 0, 0, 0.36);
 }
 .interaction-material-wrapper:hover {
   cursor: pointer;
-  background-color: rgb(46, 41, 65);
+  background-color: rgb(53, 53, 53);
   transition: 0.2s;
 }
-
 .circle-icon {
-  color: rgb(34, 30, 48);
+  color: rgb(58, 58, 58);
 }
 .circle-icon-active {
   color: white;
   animation: slide 0.3s forwards;
 }
+.options {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 0;
+  top: 35px;
+  background-color: rgb(48, 48, 48);
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  -webkit-box-shadow: 0px 0px 10px -2px rgba(0, 0, 0, 0.36);
+  -moz-box-shadow: 0px 0px 10px -2px rgba(0, 0, 0, 0.36);
+  box-shadow: 0px 0px 10px -2px rgba(0, 0, 0, 0.36);
+  padding: 5px 0px;
+}
+.options-exit {
+  display: none;
+}
+
 @keyframes slide {
   0% {
     color: rgb(34, 30, 48);

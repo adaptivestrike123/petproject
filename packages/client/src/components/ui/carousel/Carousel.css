@@ -15,8 +15,9 @@
   object-position: center;
   width: 530px;
   height: 420px;
-  background-color: rgb(43, 38, 61);
+  background-color: rgb(36, 36, 36);
 }
+
 .array-left {
   color: white;
   border: none;

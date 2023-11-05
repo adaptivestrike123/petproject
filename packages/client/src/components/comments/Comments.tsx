@@ -7,6 +7,7 @@ import SendIcon from "@mui/icons-material/Send";
 import { Button } from "../ui/button/Button";
 import { apiAxios } from "../axios/apiAxios";
 import ClearIcon from "@mui/icons-material/Clear";
+import { Link } from "react-router-dom";
 
 interface Props {
   comments: Comments[];
@@ -14,12 +15,14 @@ interface Props {
   addComment: any;
   deleteComment: any;
   key: number;
+  handleDeleteAuthor: boolean;
 }
 interface Comments {
   id: number;
   text: string;
   authorId: number;
   authorLogin: string;
+  createdAt: string;
 }
 
 export const Comments: FC<Props> = ({
@@ -27,10 +30,10 @@ export const Comments: FC<Props> = ({
   postId,
   addComment,
   deleteComment,
+  handleDeleteAuthor,
 }) => {
   const user = useAppSelector((state) => state.persist.userSlice.user);
   const [text, setText] = useState<string>("");
-
   return (
     <div className="comments">
       <div className="comments-layout">
@@ -59,24 +62,31 @@ export const Comments: FC<Props> = ({
         {comments?.map((elem) => (
           <div className="comment-wrapper">
             <div className="comment-image-wrapper">
-              <img
-                src={`http://localhost:5000/static/uploads/${
-                  elem.authorId
-                }.png?${Date.now()}`}
-                className="profile-avatar"
-                onError={({ currentTarget }) => {
-                  currentTarget.onerror = null;
-                  currentTarget.src =
-                    "http://localhost:5000/static/uploads/empty-photo.png";
-                }}
-              ></img>
+              <Link to={`/profile/${elem.authorId}`}>
+                <img
+                  src={`http://localhost:5000/static/uploads/${
+                    elem.authorId
+                  }.png?${Date.now()}`}
+                  className="profile-avatar"
+                  onError={({ currentTarget }) => {
+                    currentTarget.onerror = null;
+                    currentTarget.src =
+                      "http://localhost:5000/static/uploads/empty-photo.png";
+                  }}
+                ></img>
+              </Link>
             </div>
 
             <div className="comment-info">
-              <b>{elem.authorLogin}:</b>
+              <Link to={`/profile/${elem.authorId}`}>
+                <b>{elem.authorLogin}:</b>
+              </Link>
               <p>{elem.text}</p>
+              <p className="comment-info-p">
+                <p>{elem.createdAt}</p>
+              </p>
             </div>
-            {user?.id == elem.authorId ? (
+            {user?.id == elem.authorId || handleDeleteAuthor ? (
               <div
                 className="comment-delete"
                 onClick={() => deleteComment(elem.id)}

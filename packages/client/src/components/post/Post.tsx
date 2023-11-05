@@ -11,7 +11,7 @@ import { IPost } from "../pages/posts/Posts";
 import { Link } from "react-router-dom";
 import CommentIcon from "@mui/icons-material/Comment";
 import { Comments } from "../comments/Comments";
-import ClearIcon from "@mui/icons-material/Clear";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 interface Props {
   post: IPost;
@@ -24,6 +24,7 @@ export const Post: FC<Props> = ({ post, deletePost }) => {
   const [currentPost, setCurrentPost] = useState(post);
   const [viewComment, setViewComment] = useState<boolean>(false);
   const [counter, setCounter] = useState<number>(0);
+  const [modalConfirm, setModalConfirm] = useState<boolean>(false);
 
   const updateLikes = async () => {
     await apiAxios.post(`/like${currentPost.liked ? `/dislike` : ``}`, {
@@ -36,6 +37,7 @@ export const Post: FC<Props> = ({ post, deletePost }) => {
       likes: currentPost.liked ? currentPost.likes - 1 : currentPost.likes + 1,
     });
   };
+
   const addComment = async (postId: number, text: string) => {
     const { data } = await apiAxios.post("/comment", {
       postId,
@@ -45,7 +47,7 @@ export const Post: FC<Props> = ({ post, deletePost }) => {
     });
     setCurrentPost({
       ...currentPost,
-      comments: [...currentPost.comments, data],
+      comments: [data, ...currentPost.comments],
     });
   };
 
@@ -56,19 +58,17 @@ export const Post: FC<Props> = ({ post, deletePost }) => {
       comments: currentPost.comments.filter((elem) => elem.id != data.id),
     });
   };
-  {
-    console.log(currentPost.createdAt);
-  }
   return (
     <div className="post">
       <div className="post-layout">
         <div className="post-align">
           {currentPost.authorId == user?.id && (
             <div
-              className="post-delete"
-              onClick={() => deletePost(currentPost.id)}
+              className={modalConfirm ? `post-delete-active` : `post-delete`}
+              onMouseEnter={() => setModalConfirm(true)}
+              onMouseLeave={() => setModalConfirm(false)}
             >
-              <ClearIcon className="post-delete-icon"></ClearIcon>
+              <MoreVertIcon className="post-delete-icon"></MoreVertIcon>
             </div>
           )}
           <div className="profile-bar">
@@ -92,7 +92,26 @@ export const Post: FC<Props> = ({ post, deletePost }) => {
               </div>
             </Link>
           </div>
-
+          <CSSTransition
+            in={modalConfirm}
+            timeout={300}
+            classNames="modal-widget"
+            unmountOnExit
+          >
+            <div
+              className={`options`}
+              onMouseEnter={() => setModalConfirm(true)}
+              onMouseLeave={() => setModalConfirm(false)}
+            >
+              <p className="options-p">Изменить</p>
+              <p
+                className="options-p"
+                onClick={() => deletePost(currentPost.id)}
+              >
+                Удалить
+              </p>
+            </div>
+          </CSSTransition>
           <div className="post-content">
             <p className="post-content-title">{currentPost.text}</p>
             {currentPost.images && (
@@ -105,7 +124,7 @@ export const Post: FC<Props> = ({ post, deletePost }) => {
           </div>
           {currentPost.images.length > 1 && (
             <div className="counter">
-              {currentPost.images.map((elem: any, index) => (
+              {currentPost.images.map((_, index) => (
                 <CircleIcon
                   className={
                     index == counter ? `circle-icon-active` : `circle-icon`
@@ -153,6 +172,7 @@ export const Post: FC<Props> = ({ post, deletePost }) => {
           postId={currentPost.id}
           addComment={addComment}
           deleteComment={deleteComment}
+          handleDeleteAuthor={post.authorId == user?.id}
         ></Comments>
       </CSSTransition>
     </div>

@@ -2,11 +2,11 @@
   max-width: 580px;
   display: flex;
   flex-direction: column;
-  background-color: rgb(59, 52, 83);
+  background-color: rgb(36, 36, 36);
   padding: 15px;
   gap: 10px;
   border-bottom-left-radius: 30px;
-
+  border-bottom-right-radius: 30px;
   -webkit-box-shadow: 0px 5px 10px -2px rgba(0, 0, 0, 0.18);
   -moz-box-shadow: 0px 5px 10px -2px rgba(0, 0, 0, 0.18);
   box-shadow: 0px 5px 10px -2px rgba(0, 0, 0, 0.18);
@@ -19,16 +19,24 @@
   display: flex;
   gap: 10px;
   padding: 15px 5px 5px 5px;
-  border-top: 1px solid rgb(47, 42, 66);
+  border-top: 1px solid rgb(48, 48, 48);
 }
 .comment-info {
   white-space: wrap;
   word-break: break-all;
   text-align: left;
   max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 14px;
+}
+.comment-info-p {
+  font-size: 13px;
+  color: rgb(196, 196, 196);
 }
 .comment-input {
-  border-top: 1px solid rgb(47, 42, 66);
+  border-top: 1px solid rgb(48, 48, 48);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -38,7 +46,6 @@
   width: 75%;
 }
 .comment-delete {
-  opacity: 0.6;
   position: absolute;
   right: 0;
   top: 15px;
@@ -48,6 +55,7 @@
   justify-content: center;
   align-items: center;
   padding: 1px;
+  opacity: 0.4;
 }
 .comment-delete:hover {
   background-color: rgb(43, 38, 61);

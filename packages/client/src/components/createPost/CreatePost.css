@@ -9,11 +9,11 @@
   bottom: 0;
   right: 0;
   left: 0;
-  background: rgba(24, 24, 24, 0.5);
+  background: rgba(10, 10, 10, 0.5);
   padding: 15px;
 }
 .create-post-align {
-  background-color: rgb(59, 52, 83);
+  background-color: rgb(36, 36, 36);
   padding: 25px;
   border-radius: 20px;
   display: flex;

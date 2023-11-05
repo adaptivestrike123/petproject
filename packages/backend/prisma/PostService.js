@@ -37,7 +37,11 @@ export class PostService {
             login: true,
           },
         },
-        comments: true,
+        comments: {
+          orderBy: {
+            id: "desc",
+          },
+        },
         likes: true,
       },
       orderBy: [

@@ -1,10 +1,9 @@
 import React, { FC, useEffect, useState } from "react";
 
 import "./Follow.css";
-import { useAppSelector } from "../../store/hook";
 
 import { User } from "../../store/userSlice";
-import { apiAxios } from "../axios/apiAxios";
+
 import { Link } from "react-router-dom";
 
 interface Props {

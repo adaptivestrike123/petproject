@@ -86,12 +86,10 @@ const App: FC = () => {
                   unmountOnExit
                 >
                   <div className="widget-modal">
-                    <Link to={"/user"} className="page">
-                      Профиль
+                    <Link to={"/user"} className="link-home">
+                      <p>Профиль</p>
                     </Link>
-                    <p className="exit" onClick={() => exit()}>
-                      Выход
-                    </p>
+                    <p onClick={() => exit()}>Выход</p>
                   </div>
                 </CSSTransition>
               </div>
