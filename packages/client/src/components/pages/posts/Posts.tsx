@@ -26,7 +26,7 @@ export interface IPost {
 interface Author {
   login: string;
 }
-interface Image {
+export interface Image {
   id: number;
   imageUrl: string;
   postId: number;
@@ -45,7 +45,6 @@ export const Posts: FC<Props> = ({
   navigateCounter,
 }) => {
   const [posts, setPosts] = useState<IPost[]>([]);
-  const user = useAppSelector((state) => state.persist.userSlice.user);
 
   useEffect(() => {
     if (!authorId) {

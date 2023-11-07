@@ -80,6 +80,33 @@ export class PostService {
       throw new Error(err);
     }
   }
+
+  static async updatePost({ text, postId }) {
+    const result = await prisma.post.update({
+      where: {
+        id: postId,
+      },
+      data: {
+        text,
+      },
+      include: {
+        images: true,
+        comments: {
+          orderBy: {
+            id: "desc",
+          },
+        },
+        author: {
+          select: {
+            login: true,
+          },
+        },
+        likes: true,
+      },
+    });
+    return result;
+  }
+
   static async deletePost({ id }) {
     try {
       const result = await prisma.post.delete({

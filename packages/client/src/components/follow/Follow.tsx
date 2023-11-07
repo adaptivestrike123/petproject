@@ -17,6 +17,7 @@ export const Follow: FC<Props> = ({ modal, setModal, option, user }) => {
   return (
     <div className="followers" onClick={() => setModal(!modal)}>
       <div className="followers-layout" onClick={(e) => e.stopPropagation()}>
+        <h2>{option == "subscribers" ? "Подписчики" : "Подписки"}</h2>
         {user[option].length >= 1 ? (
           user![option as keyof User].map((elem: any) => (
             <Link

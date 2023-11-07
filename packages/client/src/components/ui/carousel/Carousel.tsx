@@ -16,6 +16,9 @@ interface Image {
 }
 
 export const Carousel: FC<Props> = ({ images, counter, setCounter }) => {
+  {
+    console.log(images);
+  }
   return (
     <div className="carousel">
       {images.length > 1 && (
@@ -30,7 +33,9 @@ export const Carousel: FC<Props> = ({ images, counter, setCounter }) => {
 
       <img
         className="image-post"
-        src={`http://localhost:5000/static/post_images/${images[counter].imageUrl}`}
+        src={`http://localhost:5000/static/post_images/${
+          images[counter].imageUrl
+        }?${Date.now()}`}
       ></img>
 
       {images.length > 1 && (

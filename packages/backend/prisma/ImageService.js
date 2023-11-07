@@ -11,4 +11,12 @@ export class ImageService {
     });
     return result;
   }
+  static async deleteImage({ postId }) {
+    const result = await prisma.image.deleteMany({
+      where: {
+        postId,
+      },
+    });
+    return result;
+  }
 }

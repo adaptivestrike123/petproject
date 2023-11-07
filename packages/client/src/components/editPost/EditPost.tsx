@@ -5,33 +5,41 @@ import React, {
   MutableRefObject,
   useEffect,
 } from "react";
-import "./CreatePost.css";
+import "../createPost/CreatePost.css";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import { apiAxios } from "../axios/apiAxios";
 import { useAppSelector } from "../../store/hook";
+import { Image } from "../pages/posts/Posts";
 
 interface Props {
   setModal: (modal: boolean) => void;
   modal: boolean;
-  handleCreatePost: (formData: FormData) => any;
+  handleEditPost: (formData: FormData) => any;
+  postId: number;
+  images: Image[];
 }
 
-export const CreatePost: FC<Props> = ({
+export const EditPost: FC<Props> = ({
   setModal,
   modal,
-  handleCreatePost,
+  handleEditPost,
+  postId,
+  images,
 }) => {
   const [text, setText] = useState<string>("");
-  const [files, setFiles] = useState<string[]>([]);
+  const [files, setFiles] = useState<Image[] | any>([]);
+  const [isClear, setIsClear] = useState<boolean>(false);
+
   const user = useAppSelector((state) => state.persist.userSlice.user);
-  const imageUpload = useRef() as MutableRefObject<
-    HTMLInputElement & HTMLFormElement
-  >;
+  const imageUpload = useRef() as MutableRefObject<HTMLInputElement>;
 
   const uploadFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target?.files && e.target.files.length !== 0) {
       const filesArray = Array.from(e.target.files);
-      const filesUrl = filesArray.map((elem) => URL.createObjectURL(elem));
+      const filesUrl = filesArray.map((elem) => ({
+        imageUrl: URL.createObjectURL(elem),
+      }));
+      console.log(filesUrl);
       setFiles([...filesUrl]);
     }
   };
@@ -44,30 +52,46 @@ export const CreatePost: FC<Props> = ({
 
       formData.append("text", text);
       formData.append("id", String(user?.id));
+      formData.append("postId", String(postId));
+      formData.append("deletePrev", "true");
 
-      await handleCreatePost(formData);
+      await handleEditPost(formData);
     } else {
       const formData = new FormData();
       formData.append("text", text);
       formData.append("id", String(user?.id));
-      await handleCreatePost(formData);
+      formData.append("postId", String(postId));
+      formData.append("deletePrev", String(isClear));
+
+      await handleEditPost(formData);
     }
   };
   const clearFiles = () => {
     setFiles([]);
+    setIsClear(true);
     imageUpload.current.value = "";
-    console.log(imageUpload.current.files);
   };
+
+  useEffect(() => {
+    setFiles(
+      images.map((elem) => ({
+        imageUrl: `http://localhost:5000/static/post_images/${elem.imageUrl}`,
+      }))
+    );
+  }, []);
+  {
+    console.log(files);
+  }
   return (
     <div className="create-post" onClick={() => setModal(!modal)}>
       <div className="create-post-align" onClick={(e) => e.stopPropagation()}>
-        <h2>Создать пост</h2>
+        <h2>Редактировать пост</h2>
         <div className="add-image" onClick={() => imageUpload.current.click()}>
           <div className="add-image-align">
             {files.length > 0 ? (
-              files.map((elem) => (
+              files.map((elem: any) => (
                 <div className="add-image-item">
-                  <img src={elem} className="create-post-image"></img>
+                  <img src={elem.imageUrl} className="create-post-image"></img>
                 </div>
               ))
             ) : (
@@ -80,7 +104,6 @@ export const CreatePost: FC<Props> = ({
             <p onClick={() => clearFiles()}>Очистить</p>
           </div>
         </div>
-
         <input
           multiple
           type="file"

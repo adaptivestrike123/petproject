@@ -12,6 +12,8 @@ import { Link } from "react-router-dom";
 import CommentIcon from "@mui/icons-material/Comment";
 import { Comments } from "../comments/Comments";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { CreatePost } from "../createPost/CreatePost";
+import { EditPost } from "../editPost/EditPost";
 
 interface Props {
   post: IPost;
@@ -25,6 +27,7 @@ export const Post: FC<Props> = ({ post, deletePost }) => {
   const [viewComment, setViewComment] = useState<boolean>(false);
   const [counter, setCounter] = useState<number>(0);
   const [modalConfirm, setModalConfirm] = useState<boolean>(false);
+  const [editPostModal, setEditPostModal] = useState<boolean>(false);
 
   const updateLikes = async () => {
     await apiAxios.post(`/like${currentPost.liked ? `/dislike` : ``}`, {
@@ -57,6 +60,14 @@ export const Post: FC<Props> = ({ post, deletePost }) => {
       ...currentPost,
       comments: currentPost.comments.filter((elem) => elem.id != data.id),
     });
+  };
+  const handleEditPost = async (formData: FormData) => {
+    const { data } = await apiAxios.patch("/post", formData);
+    setCurrentPost({ ...currentPost, images: data.images, text: data.text });
+    {
+      console.log(data);
+    }
+    setEditPostModal(!editPostModal);
   };
   return (
     <div className="post">
@@ -103,7 +114,12 @@ export const Post: FC<Props> = ({ post, deletePost }) => {
               onMouseEnter={() => setModalConfirm(true)}
               onMouseLeave={() => setModalConfirm(false)}
             >
-              <p className="options-p">Изменить</p>
+              <p
+                className="options-p"
+                onClick={() => setEditPostModal(!editPostModal)}
+              >
+                Изменить
+              </p>
               <p
                 className="options-p"
                 onClick={() => deletePost(currentPost.id)}
@@ -112,9 +128,23 @@ export const Post: FC<Props> = ({ post, deletePost }) => {
               </p>
             </div>
           </CSSTransition>
+          <CSSTransition
+            in={editPostModal}
+            timeout={300}
+            classNames="modal"
+            unmountOnExit
+          >
+            <EditPost
+              handleEditPost={handleEditPost}
+              setModal={setEditPostModal}
+              modal={editPostModal}
+              postId={currentPost.id}
+              images={currentPost.images}
+            ></EditPost>
+          </CSSTransition>
           <div className="post-content">
             <p className="post-content-title">{currentPost.text}</p>
-            {currentPost.images && (
+            {currentPost.images.length > 0 && (
               <Carousel
                 images={currentPost.images}
                 counter={counter}
