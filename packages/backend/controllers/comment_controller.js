@@ -5,11 +5,11 @@ import { CommentService } from "../prisma/CommentService.js";
 const CommentController = express.Router();
 
 CommentController.post("/", async (req, res) => {
-  const { postId, text, authorId, authorLogin } = req.body;
+  const { postId, text } = req.body;
 
   const result = await CommentService.addComment({
-    authorId: authorId,
-    authorLogin,
+    authorId: req.user.id,
+    authorLogin: req.user.login,
     postId,
     text,
   });

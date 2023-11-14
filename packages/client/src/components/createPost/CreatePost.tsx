@@ -43,13 +43,12 @@ export const CreatePost: FC<Props> = ({
       }
 
       formData.append("text", text);
-      formData.append("id", String(user?.id));
 
       await handleCreatePost(formData);
     } else {
       const formData = new FormData();
       formData.append("text", text);
-      formData.append("id", String(user?.id));
+
       await handleCreatePost(formData);
     }
   };

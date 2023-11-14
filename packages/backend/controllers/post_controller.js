@@ -40,10 +40,10 @@ PostController.post("/byId", async (req, res) => {
 
 PostController.post("/", uploadPost.array("file", 5), async (req, res) => {
   try {
-    const { text, id } = req.body;
-    const defId = Number(id);
+    const { text } = req.body;
+    const { id } = req.user;
 
-    const data = await PostService.createPost({ text, authorId: defId });
+    const data = await PostService.createPost({ text, authorId: id });
     await Promise.all(
       req.files.map(async (elem) => {
         const res = await ImageService.uploadImage({

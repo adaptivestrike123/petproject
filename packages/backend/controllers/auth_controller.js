@@ -5,7 +5,7 @@ const AuthController = express.Router();
 
 AuthController.post("/login", async (req, res) => {
   const { login, password } = req.body;
-
+  console.log(123);
   const data = await UserService.authUser(login, password);
 
   res.json(data);
