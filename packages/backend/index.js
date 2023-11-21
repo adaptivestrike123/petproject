@@ -21,6 +21,4 @@ app.use("/uploadsPost", express.static("post_images"));
 
 app.use(router);
 
-app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
-});
+app.listen(5000, "0.0.0.0");

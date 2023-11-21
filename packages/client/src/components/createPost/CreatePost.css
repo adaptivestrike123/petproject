@@ -33,6 +33,9 @@
 }
 
 .add-image {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   cursor: pointer;
 }
 .add-image-align {

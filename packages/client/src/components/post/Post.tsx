@@ -140,6 +140,7 @@ export const Post: FC<Props> = ({ post, deletePost }) => {
               modal={editPostModal}
               postId={currentPost.id}
               images={currentPost.images}
+              textPost={currentPost.text}
             ></EditPost>
           </CSSTransition>
           <div className="post-content">

@@ -6,7 +6,7 @@ import React, {
   useEffect,
 } from "react";
 import "../createPost/CreatePost.css";
-import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import ImageIcon from "@mui/icons-material/Image";
 import { apiAxios } from "../axios/apiAxios";
 import { useAppSelector } from "../../store/hook";
 import { Image } from "../pages/posts/Posts";
@@ -14,6 +14,7 @@ import { Image } from "../pages/posts/Posts";
 interface Props {
   setModal: (modal: boolean) => void;
   modal: boolean;
+  textPost: string;
   handleEditPost: (formData: FormData) => any;
   postId: number;
   images: Image[];
@@ -25,6 +26,7 @@ export const EditPost: FC<Props> = ({
   handleEditPost,
   postId,
   images,
+  textPost,
 }) => {
   const [text, setText] = useState<string>("");
   const [files, setFiles] = useState<Image[] | any>([]);
@@ -78,6 +80,7 @@ export const EditPost: FC<Props> = ({
         imageUrl: `http://localhost:5000/static/post_images/${elem.imageUrl}`,
       }))
     );
+    setText(textPost);
   }, []);
   {
     console.log(files);
@@ -95,9 +98,7 @@ export const EditPost: FC<Props> = ({
                 </div>
               ))
             ) : (
-              <AddPhotoAlternateIcon
-                style={{ width: "90px", height: "90px" }}
-              ></AddPhotoAlternateIcon>
+              <ImageIcon style={{ width: "90px", height: "90px" }}></ImageIcon>
             )}
           </div>
           <div onClick={(e) => e.stopPropagation()}>

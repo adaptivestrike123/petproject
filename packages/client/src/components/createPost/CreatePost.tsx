@@ -6,7 +6,7 @@ import React, {
   useEffect,
 } from "react";
 import "./CreatePost.css";
-import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import ImageIcon from "@mui/icons-material/Image";
 import { apiAxios } from "../axios/apiAxios";
 import { useAppSelector } from "../../store/hook";
 
@@ -70,14 +70,14 @@ export const CreatePost: FC<Props> = ({
                 </div>
               ))
             ) : (
-              <AddPhotoAlternateIcon
-                style={{ width: "90px", height: "90px" }}
-              ></AddPhotoAlternateIcon>
+              <ImageIcon style={{ width: "90px", height: "90px" }}></ImageIcon>
             )}
           </div>
-          <div onClick={(e) => e.stopPropagation()}>
-            <p onClick={() => clearFiles()}>Очистить</p>
-          </div>
+          {files.length > 0 ? (
+            <div onClick={(e) => e.stopPropagation()}>
+              <p onClick={() => clearFiles()}>Очистить</p>
+            </div>
+          ) : null}
         </div>
 
         <input

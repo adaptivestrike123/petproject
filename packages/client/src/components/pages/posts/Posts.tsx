@@ -72,15 +72,9 @@ export const Posts: FC<Props> = ({
   return (
     <div className="posts">
       <div className="posts-align">
-        {posts.length > 0 ? (
-          posts.map((elem) => (
-            <Post key={elem.id} post={elem} deletePost={deletePost}></Post>
-          ))
-        ) : (
-          <div className="posts-none">
-            <p>Посты отсутствуют!</p>
-          </div>
-        )}
+        {posts.map((elem) => (
+          <Post key={elem.id} post={elem} deletePost={deletePost}></Post>
+        ))}
       </div>
     </div>
   );
