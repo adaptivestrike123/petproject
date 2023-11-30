@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import "./CreatePost.css";
 import ImageIcon from "@mui/icons-material/Image";
-import { apiAxios } from "../axios/apiAxios";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useAppSelector } from "../../store/hook";
 
 interface Props {
@@ -75,7 +75,10 @@ export const CreatePost: FC<Props> = ({
           </div>
           {files.length > 0 ? (
             <div onClick={(e) => e.stopPropagation()}>
-              <p onClick={() => clearFiles()}>Очистить</p>
+              <DeleteIcon
+                onClick={() => clearFiles()}
+                style={{ width: "33px", height: "33px" }}
+              ></DeleteIcon>
             </div>
           ) : null}
         </div>
@@ -87,7 +90,6 @@ export const CreatePost: FC<Props> = ({
           hidden
           onChange={(e) => uploadFiles(e)}
         ></input>
-        <p>{text}</p>
         <input
           onChange={(e) => setText(e.target.value)}
           placeholder="Текст поста"

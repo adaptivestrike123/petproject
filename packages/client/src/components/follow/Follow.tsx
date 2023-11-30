@@ -37,7 +37,7 @@ export const Follow: FC<Props> = ({ modal, setModal, option, user }) => {
             </Link>
           ))
         ) : (
-          <p>Здесь пусто!</p>
+          <p className="empty-follow">...</p>
         )}
       </div>
     </div>

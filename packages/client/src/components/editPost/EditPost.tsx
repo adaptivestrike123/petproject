@@ -7,14 +7,13 @@ import React, {
 } from "react";
 import "../createPost/CreatePost.css";
 import ImageIcon from "@mui/icons-material/Image";
-import { apiAxios } from "../axios/apiAxios";
 import { useAppSelector } from "../../store/hook";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { Image } from "../pages/posts/Posts";
 
 interface Props {
   setModal: (modal: boolean) => void;
   modal: boolean;
-  textPost: string;
   handleEditPost: (formData: FormData) => any;
   postId: number;
   images: Image[];
@@ -26,7 +25,6 @@ export const EditPost: FC<Props> = ({
   handleEditPost,
   postId,
   images,
-  textPost,
 }) => {
   const [text, setText] = useState<string>("");
   const [files, setFiles] = useState<Image[] | any>([]);
@@ -80,7 +78,6 @@ export const EditPost: FC<Props> = ({
         imageUrl: `http://localhost:5000/static/post_images/${elem.imageUrl}`,
       }))
     );
-    setText(textPost);
   }, []);
   {
     console.log(files);
@@ -101,9 +98,14 @@ export const EditPost: FC<Props> = ({
               <ImageIcon style={{ width: "90px", height: "90px" }}></ImageIcon>
             )}
           </div>
-          <div onClick={(e) => e.stopPropagation()}>
-            <p onClick={() => clearFiles()}>Очистить</p>
-          </div>
+          {files.length > 0 ? (
+            <div onClick={(e) => e.stopPropagation()}>
+              <DeleteIcon
+                onClick={() => clearFiles()}
+                style={{ width: "33px", height: "33px" }}
+              ></DeleteIcon>
+            </div>
+          ) : null}
         </div>
         <input
           multiple
@@ -112,7 +114,6 @@ export const EditPost: FC<Props> = ({
           hidden
           onChange={(e) => uploadFiles(e)}
         ></input>
-        <p>{text}</p>
         <input
           onChange={(e) => setText(e.target.value)}
           placeholder="Текст поста"
