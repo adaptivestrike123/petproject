@@ -12,8 +12,8 @@ import { Link } from "react-router-dom";
 import CommentIcon from "@mui/icons-material/Comment";
 import { Comments } from "../comments/Comments";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { CreatePost } from "../createPost/CreatePost";
 import { EditPost } from "../editPost/EditPost";
+import { useInView } from "react-intersection-observer";
 
 interface Props {
   post: IPost;
@@ -29,6 +29,11 @@ export const Post: FC<Props> = ({ post, deletePost }) => {
   const [modalConfirm, setModalConfirm] = useState<boolean>(false);
   const [editPostModal, setEditPostModal] = useState<boolean>(false);
 
+  const { ref, inView } = useInView({
+    threshold: 0.2,
+    triggerOnce: true,
+  });
+
   const updateLikes = async () => {
     await apiAxios.post(`/like${currentPost.liked ? `/dislike` : ``}`, {
       userId,
@@ -40,7 +45,6 @@ export const Post: FC<Props> = ({ post, deletePost }) => {
       likes: currentPost.liked ? currentPost.likes - 1 : currentPost.likes + 1,
     });
   };
-
   const addComment = async (postId: number, text: string) => {
     const { data } = await apiAxios.post("/comment", {
       postId,
@@ -70,7 +74,7 @@ export const Post: FC<Props> = ({ post, deletePost }) => {
     setEditPostModal(!editPostModal);
   };
   return (
-    <div className="post">
+    <div className={inView ? "post" : "post-empty"} ref={ref}>
       <div className="post-layout">
         <div className="post-align">
           {currentPost.authorId == user?.id && (

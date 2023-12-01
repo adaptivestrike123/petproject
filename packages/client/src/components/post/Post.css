@@ -5,6 +5,9 @@
   justify-content: center;
   gap: 7px;
 }
+.post {
+  animation: appear-post 0.6s linear forwards;
+}
 .post-content {
   display: flex;
   flex-direction: column;
@@ -47,6 +50,9 @@
 .post-delete-icon {
   color: white;
   opacity: 0.9;
+}
+.post-empty {
+  visibility: hidden;
 }
 .post-delete-active {
   position: absolute;
@@ -148,7 +154,14 @@
 .options-exit {
   display: none;
 }
-
+@keyframes appear-post {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 @keyframes slide {
   0% {
     color: rgb(34, 30, 48);

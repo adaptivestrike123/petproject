@@ -3,7 +3,6 @@ import React, { FC, useState, useEffect } from "react";
 import "./Posts.css";
 import { apiAxios } from "../../axios/apiAxios";
 import { Post } from "../../post/Post";
-import { useAppSelector } from "../../../store/hook";
 
 interface Props {
   authorId?: number;
