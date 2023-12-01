@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import "./CreatePost.css";
 import ImageIcon from "@mui/icons-material/Image";
-import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useAppSelector } from "../../store/hook";
 
 interface Props {
@@ -61,8 +61,11 @@ export const CreatePost: FC<Props> = ({
     <div className="create-post" onClick={() => setModal(!modal)}>
       <div className="create-post-align" onClick={(e) => e.stopPropagation()}>
         <h2>Создать пост</h2>
-        <div className="add-image" onClick={() => imageUpload.current.click()}>
-          <div className="add-image-align">
+        <div className="add-image">
+          <div
+            className="add-image-align"
+            onClick={() => imageUpload.current.click()}
+          >
             {files.length > 0 ? (
               files.map((elem) => (
                 <div className="add-image-item">
@@ -74,11 +77,11 @@ export const CreatePost: FC<Props> = ({
             )}
           </div>
           {files.length > 0 ? (
-            <div onClick={(e) => e.stopPropagation()}>
-              <DeleteIcon
+            <div className="delete-image" onClick={(e) => e.stopPropagation()}>
+              <DeleteForeverIcon
                 onClick={() => clearFiles()}
-                style={{ width: "33px", height: "33px" }}
-              ></DeleteIcon>
+                style={{ width: "39px", height: "39px" }}
+              ></DeleteForeverIcon>
             </div>
           ) : null}
         </div>

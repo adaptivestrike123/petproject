@@ -8,7 +8,7 @@ import React, {
 import "../createPost/CreatePost.css";
 import ImageIcon from "@mui/icons-material/Image";
 import { useAppSelector } from "../../store/hook";
-import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { Image } from "../pages/posts/Posts";
 
 interface Props {
@@ -79,15 +79,15 @@ export const EditPost: FC<Props> = ({
       }))
     );
   }, []);
-  {
-    console.log(files);
-  }
   return (
     <div className="create-post" onClick={() => setModal(!modal)}>
       <div className="create-post-align" onClick={(e) => e.stopPropagation()}>
         <h2>Редактировать пост</h2>
-        <div className="add-image" onClick={() => imageUpload.current.click()}>
-          <div className="add-image-align">
+        <div className="add-image">
+          <div
+            className="add-image-align"
+            onClick={() => imageUpload.current.click()}
+          >
             {files.length > 0 ? (
               files.map((elem: any) => (
                 <div className="add-image-item">
@@ -99,11 +99,11 @@ export const EditPost: FC<Props> = ({
             )}
           </div>
           {files.length > 0 ? (
-            <div onClick={(e) => e.stopPropagation()}>
-              <DeleteIcon
+            <div className="delete-image" onClick={(e) => e.stopPropagation()}>
+              <DeleteForeverIcon
                 onClick={() => clearFiles()}
-                style={{ width: "33px", height: "33px" }}
-              ></DeleteIcon>
+                style={{ width: "39px", height: "39px" }}
+              ></DeleteForeverIcon>
             </div>
           ) : null}
         </div>

@@ -1,12 +1,11 @@
 import React, { FC } from "react";
 import "./Comments.css";
-import { Scrollbar } from "react-scrollbars-custom";
+
 import { useState } from "react";
 import { useAppSelector } from "../../store/hook";
 import SendIcon from "@mui/icons-material/Send";
 import { Button } from "../ui/button/Button";
-import { apiAxios } from "../axios/apiAxios";
-import ClearIcon from "@mui/icons-material/Clear";
+import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import { Link } from "react-router-dom";
 
 interface Props {
@@ -91,10 +90,10 @@ export const Comments: FC<Props> = ({
                 className="comment-delete"
                 onClick={() => deleteComment(elem.id)}
               >
-                <ClearIcon
+                <ClearRoundedIcon
                   className="comment-delete-icon"
                   style={{ width: "20px", height: "20px" }}
-                ></ClearIcon>
+                ></ClearRoundedIcon>
               </div>
             ) : null}
           </div>
