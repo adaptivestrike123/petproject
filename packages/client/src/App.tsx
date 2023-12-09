@@ -33,6 +33,7 @@ const App: FC = () => {
     }
     if (!user) {
       if (pathname == "/login" || pathname == "/register") {
+        navigate(pathname);
       } else {
         navigate("/");
       }

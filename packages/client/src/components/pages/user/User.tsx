@@ -50,10 +50,13 @@ export const User: FC = ({}) => {
   };
 
   useEffect(() => {
-    const getSubscribers = async () => {
-      await dispatch(fetchUserById(user!.id));
-    };
-    getSubscribers();
+    if (user?.id) {
+      const getSubscribers = async () => {
+        await dispatch(fetchUserById(user?.id));
+      };
+      getSubscribers();
+    } else {
+    }
   }, []);
 
   return (
